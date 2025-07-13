@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_b_sm/SampleExample/UI/CounterPage.dart';
+import 'package:flutter_b_sm/SampleExample/bloc/ImagePickerBloc/image_picker_bloc.dart';
 import 'package:flutter_b_sm/SampleExample/bloc/SliderBloc/slider_bloc.dart';
+import 'package:flutter_b_sm/SampleExample/bloc/Utils/ImagePickerUtils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'SampleExample/bloc/counterBloc/CounterBloc.dart';
 
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => CounterBloc()),
           BlocProvider(create: (context) => SliderBloc()),
+          BlocProvider(create: (context) => ImagePickerBloc(ImagePickerUtils())),
         ],
         child: const CounterPage(),
       ),
