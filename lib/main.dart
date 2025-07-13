@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_b_sm/SampleExample/UI/CounterPage.dart';
-import 'package:flutter_b_sm/SampleExample/bloc/slider_bloc.dart';
+import 'package:flutter_b_sm/SampleExample/bloc/SliderBloc/slider_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'SampleExample/bloc/CounterBloc.dart';
+import 'SampleExample/bloc/counterBloc/CounterBloc.dart';
 
 void main() {
   runApp(const MyApp());

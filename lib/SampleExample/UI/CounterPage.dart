@@ -1,11 +1,11 @@
   import 'package:flutter/cupertino.dart';
   import 'package:flutter/material.dart';
-  import 'package:flutter_b_sm/SampleExample/bloc/CounterEvent.dart';
-  import 'package:flutter_b_sm/SampleExample/bloc/CounterState.dart';
-  import 'package:flutter_b_sm/SampleExample/bloc/slider_bloc.dart';
+  import 'package:flutter_b_sm/SampleExample/bloc/counterBloc/CounterEvent.dart';
+  import 'package:flutter_b_sm/SampleExample/bloc/SliderBloc/slider_bloc.dart';
   import 'package:flutter_bloc/flutter_bloc.dart';
 
-  import '../bloc/CounterBloc.dart';
+  import '../bloc/counterBloc/CounterBloc.dart';
+import '../bloc/counterBloc/CounterState.dart';
 
   class CounterPage extends StatefulWidget {
     const CounterPage({super.key});
