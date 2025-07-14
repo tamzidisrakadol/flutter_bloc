@@ -1,6 +1,27 @@
 part of 'post_bloc.dart';
 
-@immutable
-sealed class PostState {}
+abstract class PostState{
+  const PostState();
 
-final class PostInitial extends PostState {}
+  @override
+  List<Object> get props => [];
+}
+
+class PostInitial extends PostState {}
+
+class PostLoading extends PostState {}
+
+class PostLoaded extends PostState {
+  final List<Product> posts;
+  PostLoaded({required this.posts});
+
+  @override
+  List<Object> get props => [posts];
+}
+class PostError extends PostState {
+  final String message;
+  PostError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
