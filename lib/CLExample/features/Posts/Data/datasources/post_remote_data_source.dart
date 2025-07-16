@@ -14,7 +14,7 @@ class PostRemoteDataSourceImpl implements PostRemoteDataSource {
 
   @override
   Future<ApiResult<List<Product>>> getAllProducts() async {
-    return await dioClient.request<List<Product>>(
+    return await dioClient.apiResponseHandler<List<Product>>(
       "api/v1/products", // Just the endpoint path
       method: 'GET',
       parser: (json) {

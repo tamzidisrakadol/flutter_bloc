@@ -18,7 +18,7 @@ class DioClient {
     // // dio.interceptors.add(AuthInterceptor()); // Custom auth interceptor
   }
 
-  Future<ApiResult<T>> request<T>(
+  Future<ApiResult<T>> apiResponseHandler<T>(
       String path, {
         required T Function(dynamic json) parser,
         String method = 'GET',
@@ -130,7 +130,7 @@ class DioClient {
 }
 
 
-// Extension to add .when() or .fold() for sealed classes (optional, but convenient)
+// Extension to add .when() or .fold() for sealed classes
 extension ApiResultExtension<T> on ApiResult<T> {
   R when<R>(
       R Function(T data, int? statusCode) onSuccess,
