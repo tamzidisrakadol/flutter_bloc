@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../bloc/post_bloc.dart';
 
-
 class PostListPage extends StatefulWidget {
   const PostListPage({super.key});
 
@@ -14,7 +13,6 @@ class PostListPage extends StatefulWidget {
 }
 
 class _PostListPageState extends State<PostListPage> {
-
   @override
   void initState() {
     super.initState();
@@ -28,34 +26,52 @@ class _PostListPageState extends State<PostListPage> {
         title: Text("Clean Architecture example"),
         backgroundColor: Colors.green,
       ),
-      body: BlocBuilder<PostBloc,PostState>(builder: (context,state){
-        if(state is PostInitial){
-          return Center(child: CircularProgressIndicator());
-        }else if(state is PostLoading){
-          return Center(child: CircularProgressIndicator());
-        }else if(state is PostLoaded){
-          return ListView.builder(
-            itemCount: state.posts.length,
-            itemBuilder: (context,index){
-              final post = state.posts[index];
-              return ListTile(
-                title: Text(post.title??""),
-                subtitle: Text(post.category?.name ??""),
-                onTap: (){
-                  /* go and go_named used for screen replacement and navigation
+      body: BlocBuilder<PostBloc, PostState>(
+        builder: (context, state) {
+          if (state is PostInitial) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is PostLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is PostLoaded) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                BlocProvider.of<PostBloc>(context).add(GetAllPostEvent());
+              },
+              child: ListView.builder(
+                itemCount: state.posts.length,
+                itemBuilder: (context, index) {
+                  final post = state.posts[index];
+                  return ListTile(
+                    title: Text(post.title ?? ""),
+                    subtitle: Text(post.category?.name ?? ""),
+                    onTap: () {
+                      /* go and go_named used for screen replacement and navigation
                   * use push and push named for using backstack*/
 
-
-                  context.push("/details",extra: post);
+                      context.push("/details", extra: post);
+                    },
+                  );
                 },
-              );
-            },
-          );
-        }else if(state is PostError){
-          return Center(child: Text(state.message,style: TextStyle(color: Colors.red,fontSize: 20),));
-        }
-        return SizedBox.shrink();
-      }),
+              ),
+            );
+          } else if (state is PostError) {
+            return Center(
+              child: Text(
+                state.message,
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              ),
+            );
+          } else if (state is PostNetworkError) {
+            return Center(
+              child: Text(
+                state.message,
+                style: TextStyle(color: Colors.red, fontSize: 25),
+              ),
+            );
+          }
+          return SizedBox.shrink();
+        },
+      ),
     );
   }
 }

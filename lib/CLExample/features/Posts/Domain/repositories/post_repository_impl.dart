@@ -9,25 +9,18 @@ import '../../Data/datasources/post_remote_data_source.dart';
 
 class PostRepositoryImpl implements PostRepository {
   final PostRemoteDataSource remoteDataSource;
-  final NetworkInfo networkInfo;
 
   PostRepositoryImpl({
     required this.remoteDataSource,
-    required this.networkInfo,
   });
 
   @override
   Future<Either<Failure, List<Product>>> getAllProducts() async {
-    if (await networkInfo.isConnected) {
-      final apiResult = await remoteDataSource.getAllProducts();
-
-      return apiResult.when(
-        (data, statusCode) => Right(data), // Success case
-        (failure, statusCode) => Left(failure), // Failure case
-      );
-    } else {
-      return const Left(NetworkFailure(message: 'No Internet Connection.'));
-    }
+    final apiResult = await remoteDataSource.getAllProducts();
+    return apiResult.when(
+          (data, statusCode) => Right(data), // Success case
+          (failure, statusCode) => Left(failure), // Failure case
+    );
   }
 
   //without dartz

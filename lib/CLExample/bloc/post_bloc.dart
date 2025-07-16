@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter_b_sm/CLExample/core/network/network_info.dart';
 import 'package:flutter_b_sm/CLExample/features/Posts/Domain/post.dart';
 import 'package:flutter_b_sm/CLExample/features/Posts/Domain/usecases/get_all_posts.dart';
 import 'package:meta/meta.dart';
@@ -14,9 +15,19 @@ part 'post_state.dart';
 class PostBloc extends Bloc<PostEvent, PostState> {
   //final GetAllPosts getAllPosts;
   final PostRepository postRepository;
+  final NetworkInfo networkInfo;
+  late StreamSubscription<bool> _connectionSubscription;
 
-  PostBloc(this.postRepository) : super(PostInitial()) {
+  PostBloc(this.postRepository,this.networkInfo) : super(PostInitial()) {
+    _connectionSubscription = networkInfo.onConnectionChanged.listen((isConnected){
+      if(isConnected){
+        add(GetAllPostEvent());
+      }else{
+        add(NetworkErrorEvent());
+      }
+    });
     on<GetAllPostEvent>(_getAllPostEvent);
+    on<NetworkErrorEvent>(_networkErrorEvent);
   }
 
   FutureOr<void> _getAllPostEvent(GetAllPostEvent event, Emitter<PostState> emit) async{
@@ -36,5 +47,15 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       default:
         return 'Unexpected Error';
     }
+  }
+
+  FutureOr<void> _networkErrorEvent(NetworkErrorEvent event, Emitter<PostState> emit) {
+    emit(PostNetworkError(message: "No Internet Connection"));
+  }
+
+  @override
+  Future<void> close() {
+    _connectionSubscription.cancel();
+    return super.close();
   }
 }

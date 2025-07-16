@@ -50,7 +50,7 @@ void initDependency(){
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerSingleton(()=> GetAllPosts(sl()));
   sl.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImpl(dioClient: sl()));
-  sl.registerSingleton<PostRepository>(PostRepositoryImpl(remoteDataSource: sl(),networkInfo: sl()));
-  sl.registerFactory(()=> PostBloc(sl()));
+  sl.registerSingleton<PostRepository>(PostRepositoryImpl(remoteDataSource: sl()));
+  sl.registerFactory(()=> PostBloc(sl(),sl()));
 }
 

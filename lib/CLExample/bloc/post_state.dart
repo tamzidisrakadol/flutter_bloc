@@ -25,3 +25,11 @@ class PostError extends PostState {
   @override
   List<Object> get props => [message];
 }
+
+class PostNetworkError extends PostState {
+  final String message;
+  PostNetworkError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
