@@ -1,5 +1,9 @@
 import 'package:flutter_b_sm/CLExample/UI/post_details_page.dart';
 import 'package:flutter_b_sm/CLExample/UI/post_list_page.dart';
+import 'package:flutter_b_sm/MusicPlayer/domain/Repositories/SongRepository.dart';
+import 'package:flutter_b_sm/MusicPlayer/domain/UseCase/GetLocalSongs.dart';
+import 'package:flutter_b_sm/MusicPlayer/presentation/BloC/song_bloc.dart';
+import 'package:flutter_b_sm/MusicPlayer/presentation/UI/SongListScreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../SampleExample/bloc/ImagePickerBloc/image_picker_bloc.dart';
@@ -26,8 +30,9 @@ final GoRouter goRouter = GoRouter(
             ),
             BlocProvider(create: (context) => sl<PostBloc>()),
             BlocProvider(create: (context) => PostDetailsBloc()),
+            BlocProvider(create: (context)=> sl<MusicPlayerBloc>())
           ],
-          child: const PostListPage(),
+          child: MusicPlayerPage(),
         );
       },
     ),
