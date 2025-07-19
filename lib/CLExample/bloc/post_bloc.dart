@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_b_sm/CLExample/core/network/network_info.dart';
 import 'package:flutter_b_sm/CLExample/features/Posts/Domain/post.dart';
 import 'package:flutter_b_sm/CLExample/features/Posts/Domain/usecases/get_all_posts.dart';
@@ -28,6 +29,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     });
     on<GetAllPostEvent>(_getAllPostEvent);
     on<NetworkErrorEvent>(_networkErrorEvent);
+    on<UserSignOutEvent>(_userSignOutEvent);
   }
 
   FutureOr<void> _getAllPostEvent(GetAllPostEvent event, Emitter<PostState> emit) async{
@@ -57,5 +59,11 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   Future<void> close() {
     _connectionSubscription.cancel();
     return super.close();
+  }
+
+  FutureOr<void> _userSignOutEvent(UserSignOutEvent event, Emitter<PostState> emit) async{
+    // do it from repository and make sure current user is not null;
+    await FirebaseAuth.instance.signOut();
+    emit(UserSignedOutState(message: "User signed out"));
   }
 }

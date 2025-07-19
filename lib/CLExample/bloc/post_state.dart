@@ -33,3 +33,13 @@ class PostNetworkError extends PostState {
   @override
   List<Object> get props => [message];
 }
+
+class UserSignedOutState extends PostState{
+  final String message;
+
+  UserSignedOutState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+
+}

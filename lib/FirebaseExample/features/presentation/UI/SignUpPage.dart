@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../AuthBloc/auth_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -71,8 +72,9 @@ class _SignUpPageState extends State<SignUpPage> {
             // Navigate to a success screen or show success message
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             _showMessageDialog('Success', 'User signed up: ${state.user.email}');
-            // You might navigate to a home page here:
-            // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+            emailController.clear();
+            passwordController.clear();
+            context.go("/productList");
           } else if (state is AuthError) {
             // Show error message
             ScaffoldMessenger.of(context).hideCurrentSnackBar();

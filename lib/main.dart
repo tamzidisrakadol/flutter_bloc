@@ -85,6 +85,6 @@ void initDependency(){
   sl.registerLazySingleton<FirebaseNetworkInfo>(()=>FirebaseNetworkInfoImpl(sl()));
   sl.registerLazySingleton<AuthRemoteDataSource>(()=>AuthRemoteDataSourceImpl());
   sl.registerLazySingleton<AuthRepository>(()=>AuthRepositoryImpl(sl()));
-  sl.registerFactory(()=>AuthBloc(sl()));
+  sl.registerLazySingleton(()=>AuthBloc(sl()));
 }
 

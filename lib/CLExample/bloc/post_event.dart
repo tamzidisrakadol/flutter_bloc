@@ -12,3 +12,5 @@ abstract class PostEvent{
 class GetAllPostEvent extends PostEvent{}
 
 class NetworkErrorEvent extends PostEvent{}
+
+class UserSignOutEvent extends PostEvent{}

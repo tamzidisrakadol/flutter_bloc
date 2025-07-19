@@ -15,3 +15,6 @@ class GetPostDetailsEvent extends PostDetailsEvent{
   List<Object> get props => [product];
 }
 
+
+
+

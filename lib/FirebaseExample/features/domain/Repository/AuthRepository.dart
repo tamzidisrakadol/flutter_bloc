@@ -5,7 +5,10 @@ import 'package:flutter_b_sm/FirebaseExample/features/domain/Entities/UserEntity
 import '../../data/DataSource/AuthRemoteDataSource.dart';
 
 abstract class AuthRepository{
-  Future<Either<FirebaseFailure,UserEntity>> signUpUserWithEmailAndPassword(String email,String password);
+  Future<Either<FirebaseFailure, UserEntity>> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
   Future<Either<FirebaseFailure,UserEntity>> loginUserWithEmailAndPassword(String email,String password);
 }
 
@@ -26,8 +29,10 @@ class AuthRepositoryImpl implements AuthRepository{
     }
   }
 
+
+
   @override
-  Future<Either<FirebaseFailure, UserEntity>> signUpUserWithEmailAndPassword(String email, String password) async{
+  Future<Either<FirebaseFailure, UserEntity>> signUpWithEmailAndPassword({required String email, required String password}) async{
     try{
       final user = await authRemoteDataSource.signUpUserWithEmailAndPassword(email, password);
       return Right(user);

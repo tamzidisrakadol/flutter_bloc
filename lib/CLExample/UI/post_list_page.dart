@@ -24,6 +24,9 @@ class _PostListPageState extends State<PostListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Clean Architecture example"),
+        actions: [IconButton(onPressed: (){
+          BlocProvider.of<PostBloc>(context).add(UserSignOutEvent());
+        }, icon: Icon(Icons.logout))],
         backgroundColor: Colors.green,
       ),
       body: BlocBuilder<PostBloc, PostState>(
@@ -68,6 +71,8 @@ class _PostListPageState extends State<PostListPage> {
                 style: TextStyle(color: Colors.red, fontSize: 25),
               ),
             );
+          } else if(state is UserSignedOutState){
+            context.go("/signUp");
           }
           return SizedBox.shrink();
         },

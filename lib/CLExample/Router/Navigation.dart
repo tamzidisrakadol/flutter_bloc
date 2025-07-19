@@ -1,6 +1,7 @@
 import 'package:flutter_b_sm/CLExample/UI/post_details_page.dart';
 import 'package:flutter_b_sm/CLExample/UI/post_list_page.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/AuthBloc/auth_bloc.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/HomePage.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/SignUpPage.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/Repositories/SongRepository.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/UseCase/GetLocalSongs.dart';
@@ -21,7 +22,7 @@ final GoRouter goRouter = GoRouter(
   routes: [
     GoRoute(
       path: "/",
-      name: "Product List Screen",
+      name: "home page",
       builder: (context, state) {
         return MultiBlocProvider(
           providers: [
@@ -35,10 +36,36 @@ final GoRouter goRouter = GoRouter(
             BlocProvider(create: (context)=> sl<MusicPlayerBloc>()),
             BlocProvider(create: (context)=> sl<AuthBloc>())
           ],
+          child: Homepage(),
+        );
+      },
+    ),
+
+
+    GoRoute(
+      path: "/signUp",
+      name: "Sign up screen",
+      builder: (context, state) {
+        return BlocProvider(
+          create: (context) => sl<AuthBloc>(),
           child: SignUpPage(),
         );
       },
     ),
+
+
+
+    GoRoute(
+      path: "/productList",
+      name: "Product list Screen",
+      builder: (context, state) {
+        return BlocProvider(
+          create: (context) => sl<PostBloc>(),
+          child: PostListPage(),
+        );
+      },
+    ),
+
     GoRoute(
       path: "/details",
       name: "Product details Screen",
