@@ -1,5 +1,6 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_b_sm/CLExample/Router/Navigation.dart';
 import 'package:flutter_b_sm/CLExample/UI/post_list_page.dart';
@@ -8,6 +9,10 @@ import 'package:flutter_b_sm/CLExample/core/network/dio_client.dart';
 import 'package:flutter_b_sm/CLExample/core/network/network_info.dart';
 import 'package:flutter_b_sm/CLExample/features/Posts/Domain/repositories/post_repository.dart';
 import 'package:flutter_b_sm/CLExample/features/Posts/Domain/usecases/get_all_posts.dart';
+import 'package:flutter_b_sm/FirebaseExample/core/network/firebase_network_info.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/data/DataSource/AuthRemoteDataSource.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/domain/Repository/AuthRepository.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/AuthBloc/auth_bloc.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/Repositories/SongRepository.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/UseCase/GetLocalSongs.dart';
 import 'package:flutter_b_sm/SampleExample/UI/CounterPage.dart';
@@ -31,6 +36,7 @@ final sl = GetIt.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initDependency();
+  await Firebase.initializeApp();
 
   // final audioHandler = await AudioService.init(
   //   builder: () => AudioNotificationHandler(),
@@ -75,5 +81,10 @@ void initDependency(){
   //sl.registerLazySingleton(()=> RequestPermissions(sl()));
   sl.registerFactory(()=> MusicPlayerBloc(getSongs: sl()));
  // sl.registerLazySingleton(()=> AudioNotificationHandler());
+
+  sl.registerLazySingleton<FirebaseNetworkInfo>(()=>FirebaseNetworkInfoImpl(sl()));
+  sl.registerLazySingleton<AuthRemoteDataSource>(()=>AuthRemoteDataSourceImpl());
+  sl.registerLazySingleton<AuthRepository>(()=>AuthRepositoryImpl(sl()));
+  sl.registerFactory(()=>AuthBloc(sl()));
 }
 

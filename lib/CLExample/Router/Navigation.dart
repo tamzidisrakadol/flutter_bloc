@@ -1,5 +1,7 @@
 import 'package:flutter_b_sm/CLExample/UI/post_details_page.dart';
 import 'package:flutter_b_sm/CLExample/UI/post_list_page.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/AuthBloc/auth_bloc.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/SignUpPage.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/Repositories/SongRepository.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/UseCase/GetLocalSongs.dart';
 import 'package:flutter_b_sm/MusicPlayer/presentation/BloC/song_bloc.dart';
@@ -30,9 +32,10 @@ final GoRouter goRouter = GoRouter(
             ),
             BlocProvider(create: (context) => sl<PostBloc>()),
             BlocProvider(create: (context) => PostDetailsBloc()),
-            BlocProvider(create: (context)=> sl<MusicPlayerBloc>())
+            BlocProvider(create: (context)=> sl<MusicPlayerBloc>()),
+            BlocProvider(create: (context)=> sl<AuthBloc>())
           ],
-          child: MusicPlayerPage(),
+          child: SignUpPage(),
         );
       },
     ),
