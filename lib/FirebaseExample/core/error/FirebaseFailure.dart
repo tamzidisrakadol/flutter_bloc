@@ -21,3 +21,29 @@ class FirebaseNetworkFailure extends Failure{
   final String message;
   const FirebaseNetworkFailure(this.message);
 }
+
+
+class AuthFailure extends Failure {
+  final String message;
+  AuthFailure({required this.message}) : super([message]);
+}
+
+class InvalidEmailPasswordFailure extends AuthFailure {
+   InvalidEmailPasswordFailure({required super.message});
+}
+
+class EmailAlreadyInUseFailure extends AuthFailure {
+   EmailAlreadyInUseFailure({required super.message});
+}
+
+class WeakPasswordFailure extends AuthFailure {
+   WeakPasswordFailure({required super.message});
+}
+
+class UserNotFoundFailure extends AuthFailure {
+   UserNotFoundFailure({required super.message});
+}
+
+class WrongPasswordFailure extends AuthFailure {
+   WrongPasswordFailure({required super.message});
+}
