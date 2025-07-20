@@ -11,8 +11,10 @@ import 'package:flutter_b_sm/CLExample/features/Posts/Domain/repositories/post_r
 import 'package:flutter_b_sm/CLExample/features/Posts/Domain/usecases/get_all_posts.dart';
 import 'package:flutter_b_sm/FirebaseExample/core/network/firebase_network_info.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/data/DataSource/AuthRemoteDataSource.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/data/DataSource/ServiceProviderDataSource.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/domain/Repository/AuthRepository.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/AuthBloc/auth_bloc.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/ServiceProviderBloC/service_provider_bloc.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/Repositories/SongRepository.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/UseCase/GetLocalSongs.dart';
 import 'package:flutter_b_sm/SampleExample/UI/CounterPage.dart';
@@ -84,7 +86,9 @@ void initDependency(){
 
   sl.registerLazySingleton<FirebaseNetworkInfo>(()=>FirebaseNetworkInfoImpl(sl()));
   sl.registerLazySingleton<AuthRemoteDataSource>(()=>AuthRemoteDataSourceImpl());
-  sl.registerLazySingleton<AuthRepository>(()=>AuthRepositoryImpl(sl()));
+  sl.registerLazySingleton<ServiceProviderDataSource>(()=>ServiceProviderDataSourceImpl());
+  sl.registerLazySingleton<AuthRepository>(()=>AuthRepositoryImpl(sl(),sl()));
   sl.registerLazySingleton(()=>AuthBloc(sl()));
+  sl.registerLazySingleton(()=>ServiceProviderBloc(sl()));
 }
 

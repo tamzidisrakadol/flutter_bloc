@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:flutter_b_sm/FirebaseExample/core/error/FirebaseFailure.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/data/model/ServiceProviderModel.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/data/model/UserModel.dart';
 
 abstract class AuthRemoteDataSource{
   Future<UserModel> signUpUserWithEmailAndPassword(String email,String password);
   Future<UserModel> loginUserWithEmailAndPassword(String email,String password);
+
 }
 
 

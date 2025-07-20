@@ -1,6 +1,8 @@
 import 'package:flutter_b_sm/CLExample/UI/post_details_page.dart';
 import 'package:flutter_b_sm/CLExample/UI/post_list_page.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/AuthBloc/auth_bloc.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/ServiceProviderBloC/service_provider_bloc.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/AddServiceProvider.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/HomePage.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/SignUpPage.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/Repositories/SongRepository.dart';
@@ -34,7 +36,8 @@ final GoRouter goRouter = GoRouter(
             BlocProvider(create: (context) => sl<PostBloc>()),
             BlocProvider(create: (context) => PostDetailsBloc()),
             BlocProvider(create: (context)=> sl<MusicPlayerBloc>()),
-            BlocProvider(create: (context)=> sl<AuthBloc>())
+            BlocProvider(create: (context)=> sl<AuthBloc>()),
+            BlocProvider(create: (context)=> sl<ServiceProviderBloc>())
           ],
           child: Homepage(),
         );
@@ -49,6 +52,17 @@ final GoRouter goRouter = GoRouter(
         return BlocProvider(
           create: (context) => sl<AuthBloc>(),
           child: SignUpPage(),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: "/addService",
+      name: "Service Provider Screen",
+      builder: (context, state) {
+        return BlocProvider(
+          create: (context) => sl<ServiceProviderBloc>(), //change the bloc
+          child: AddServiceProvider(),
         );
       },
     ),
