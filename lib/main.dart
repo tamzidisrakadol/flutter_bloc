@@ -14,6 +14,7 @@ import 'package:flutter_b_sm/FirebaseExample/features/data/DataSource/AuthRemote
 import 'package:flutter_b_sm/FirebaseExample/features/data/DataSource/ServiceProviderDataSource.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/domain/Repository/AuthRepository.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/AuthBloc/auth_bloc.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/MovieBloc/movie_bloc.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/ServiceProviderBloC/service_provider_bloc.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/Repositories/SongRepository.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/UseCase/GetLocalSongs.dart';
@@ -90,5 +91,6 @@ void initDependency(){
   sl.registerLazySingleton<AuthRepository>(()=>AuthRepositoryImpl(sl(),sl()));
   sl.registerLazySingleton(()=>AuthBloc(sl()));
   sl.registerLazySingleton(()=>ServiceProviderBloc(sl()));
+  sl.registerLazySingleton(()=>MovieBloc(sl()));
 }
 

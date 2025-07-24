@@ -39,6 +39,12 @@ class _PostListPageState extends State<PostListPage> {
             icon: Icon(Icons.add_moderator_rounded),
           ),
 
+          IconButton(
+            onPressed: () {
+              context.push("/movie");
+            },
+            icon: Icon(Icons.supervised_user_circle_sharp),
+          ),
 
         ],
         backgroundColor: Colors.green,

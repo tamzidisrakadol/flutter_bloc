@@ -1,9 +1,11 @@
 import 'package:flutter_b_sm/CLExample/UI/post_details_page.dart';
 import 'package:flutter_b_sm/CLExample/UI/post_list_page.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/AuthBloc/auth_bloc.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/MovieBloc/movie_bloc.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/ServiceProviderBloC/service_provider_bloc.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/AddServiceProvider.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/HomePage.dart';
+import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/MoviePage.dart';
 import 'package:flutter_b_sm/FirebaseExample/features/presentation/UI/SignUpPage.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/Repositories/SongRepository.dart';
 import 'package:flutter_b_sm/MusicPlayer/domain/UseCase/GetLocalSongs.dart';
@@ -37,7 +39,8 @@ final GoRouter goRouter = GoRouter(
             BlocProvider(create: (context) => PostDetailsBloc()),
             BlocProvider(create: (context)=> sl<MusicPlayerBloc>()),
             BlocProvider(create: (context)=> sl<AuthBloc>()),
-            BlocProvider(create: (context)=> sl<ServiceProviderBloc>())
+            BlocProvider(create: (context)=> sl<ServiceProviderBloc>()),
+            BlocProvider(create: (context)=> sl<MovieBloc>())
           ],
           child: Homepage(),
         );
@@ -61,7 +64,7 @@ final GoRouter goRouter = GoRouter(
       name: "Service Provider Screen",
       builder: (context, state) {
         return BlocProvider(
-          create: (context) => sl<ServiceProviderBloc>(), //change the bloc
+          create: (context) => sl<ServiceProviderBloc>(),
           child: AddServiceProvider(),
         );
       },
@@ -87,6 +90,17 @@ final GoRouter goRouter = GoRouter(
         return BlocProvider(
           create: (context) => PostDetailsBloc(),
           child: PostDetailsPage(product: state.extra as Product),
+        );
+      },
+    ),
+
+    GoRoute(
+      path: "/movie",
+      name: "Movie List Screen",
+      builder: (context, state) {
+        return BlocProvider(
+          create: (context) => sl<MovieBloc>(),
+          child: MovieListScreen(),
         );
       },
     ),
